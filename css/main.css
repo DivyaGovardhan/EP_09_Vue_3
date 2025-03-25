@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'Montserrat';
+}
+
+.column-container {
+    display: flex;
+    justify-content: center;
+}
+
+.column {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    min-width: 200px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px;
+    width: 30%;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul > li{
+    margin-bottom: 15px;
+}
+
+input[type=checkbox]{
+    height: 18px;
+    width: 18px;
+}
+
+.card {
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    list-style-type: none;
+    word-break: break-all;
+}
+
+.form-container {
+    margin: 20px;
+    width: 30%;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-container form div {
+    margin-bottom: 10px;
+}
+
+.form-container form label {
+    margin-right: 10px;
+}
+
+.form-container form input {
+    padding: 5px;
+    width: 80%;
+    min-width: 200px;
+}
+
+.form-container form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    min-width: 260px;
+}
+
+.form-container form button:hover {
+    transition: 0.2s;
+    background-color: #0056b3;
+}
