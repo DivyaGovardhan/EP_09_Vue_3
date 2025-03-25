@@ -56,9 +56,10 @@ new Vue({
 
     data: {
         columns: [
-            { name: 'FirstColumn', cards: [], maxCards: 3 },
-            { name: 'SecondColumn', cards: [], maxCards: 5 },
-            { name: 'ThirdColumn', cards: [], maxCards: null }
+            { name: 'Запланированные задачи', cards: [], maxCards: 3 },
+            { name: 'Задачи в работе', cards: [], maxCards: 5 },
+            { name: 'Тестирование', cards: [], maxCards: null },
+            { name: 'Выполненные задачи', cards: [], maxCards: null }
         ]
     },
 
