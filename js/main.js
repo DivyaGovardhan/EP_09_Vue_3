@@ -18,30 +18,18 @@ new Vue({
                       <label for="deadline">Deadline:</label>
                       <input type="date" id="deadline" v-model="newCard.deadline">
                     </div>
-                    <div v-if="showReturnReason">
-                      <label for="returnReason">Причина возврата:</label>
-                      <textarea id="returnReason" v-model="newCard.returnReason" required></textarea>
-                    </div>
                     <button type="submit">{{ isEditing ? 'Update Card' : 'Add Card' }}</button>
                     <button type="button" v-if="isEditing" @click="cancelEdit">Cancel</button>
                   </form>
                 </div>
             `,
 
-            props: {
-                showReturnReason: {
-                    type: Boolean,
-                    default: false
-                }
-            },
-
             data() {
                 return {
                     newCard: {
                         title: '',
                         description: '',
-                        deadline: '',
-                        returnReason: ''
+                        deadline: ''
                     },
                     isEditing: false,
                     editIndex: null,
@@ -67,8 +55,7 @@ new Vue({
                     this.newCard = {
                         title: '',
                         description: '',
-                        deadline: '',
-                        returnReason: ''
+                        deadline: ''
                     };
                     this.isEditing = false;
                     this.editIndex = null;
@@ -83,8 +70,7 @@ new Vue({
                     this.newCard = {
                         title: card.title,
                         description: card.description,
-                        deadline: card.deadline,
-                        returnReason: card.returnReason || ''
+                        deadline: card.deadline
                     };
                     this.isEditing = true;
                     this.editIndex = cardIndex;
@@ -109,7 +95,6 @@ new Vue({
                     <button v-if="showEdit" @click="$emit('edit', card, colIndex, cardIndex)">Редактировать</button>
                     <button v-if="showDelete" @click="$emit('delete', colIndex, cardIndex)">Удалить</button>
                     <button v-if="showMoveForward" @click="$emit('moveForward', card)">Переместить вперед</button>
-                    <button v-if="showMoveBack" @click="$emit('moveBack', card)">Вернуться</button>
                     <button v-if="showReturnToWork" @click="$emit('returnToWork', card)">Вернуть в работу</button>
                   </div>
                 </div>
@@ -128,13 +113,11 @@ new Vue({
                     return this.colIndex === 0; // Удаление только в первом столбце
                 },
                 showMoveForward() {
-                    return this.colIndex < this.columns.length - 1 && this.colIndex !== 2; // Перемещение вперед, кроме 3->4
-                },
-                showMoveBack() {
-                    return this.colIndex > 0; // Возврат назад для всех кроме первого
+                    // Перемещение вперед из 1->2, 2->3, 3->4
+                    return this.colIndex < this.columns.length - 1;
                 },
                 showReturnToWork() {
-                    return this.colIndex === 2; // Кнопка возврата в работу только для третьего столбца
+                    return this.colIndex === 2; // Кнопка возврата только для третьего столбца
                 }
             }
         },
@@ -226,10 +209,6 @@ new Vue({
             editedCard.description = card.description;
             editedCard.deadline = card.deadline;
             editedCard.lastEditedAt = new Date().toLocaleString();
-
-            if (card.returnReason) {
-                editedCard.returnReason = card.returnReason;
-            }
         },
 
         deleteCard(colIndex, cardIndex) {
@@ -252,6 +231,11 @@ new Vue({
                         movedCard.status = deadline < now ? 'overdue' : 'completed';
                     }
 
+                    // Убираем причину возврата при перемещении вперед
+                    if (fromColumnIndex === 1 && toColumnIndex === 2) {
+                        movedCard.returnReason = null;
+                    }
+
                     // Добавляем причину возврата если есть
                     if (returnReason) {
                         movedCard.returnReason = returnReason;
@@ -260,11 +244,6 @@ new Vue({
                     toColumn.cards.push(movedCard);
                 }
             }
-        },
-
-        editCard(card, colIndex, cardIndex) {
-            this.$refs.cardForm.setEditData(card, colIndex, cardIndex);
-            this.$refs.cardForm.showReturnReason = colIndex === 2;
         },
 
         promptReturnToWork(card) {
@@ -280,6 +259,10 @@ new Vue({
 
         handleReturnCancel() {
             this.showReturnDialog = false;
+        },
+
+        editCard(card, colIndex, cardIndex) {
+            this.$refs.cardForm.setEditData(card, colIndex, cardIndex);
         }
     },
 
@@ -323,7 +306,6 @@ new Vue({
                   @edit="editCard"
                   @delete="deleteCard"
                   @moveForward="moveCard(card, colIndex, colIndex + 1)"
-                  @moveBack="moveCard(card, colIndex, colIndex - 1)"
                   @returnToWork="promptReturnToWork"
                 />
               </div>
