@@ -10,8 +10,7 @@ new Vue({
         newCard: {
             title: '',
             description: '',
-            deadline: '',
-            items: ['', '', '']
+            deadline: ''
         },
         isLocked: false
     },
@@ -66,23 +65,16 @@ new Vue({
         },
 
         addCard() {
-            const validItems = this.newCard.items.filter(item => item.trim() !== '');
+            const newCard = {
+                title: this.newCard.title,
+                description: this.newCard.description,
+                deadline: this.newCard.deadline,
+                createdAt: new Date().toLocaleString(),
+                lastEditedAt: null
+            };
 
-            if (validItems.length >= 3 && validItems.length <= 5 && this.columns[0].cards.length < this.columns[0].maxCards) {
-                const newCard = {
-                    title: this.newCard.title,
-                    description: '', // Добавьте описание
-                    deadline: '', // Добавьте дэдлайн
-                    createdAt: new Date().toLocaleString(), // Дата создания
-                    lastEditedAt: null, // Дата последнего редактирования
-                    items: validItems.map(item => ({ text: item, completed: false }))
-                };
-
-                this.columns[0].cards.push(newCard);
-                this.resetForm();
-            } else {
-                alert('Введите от 3 до 5 пунктов');
-            }
+            this.columns[0].cards.push(newCard);
+            this.resetForm();
         },
 
         resetForm() {
@@ -179,40 +171,25 @@ new Vue({
             <label for="deadline">Deadline:</label>
             <input type="date" id="deadline" v-model="newCard.deadline">
           </div>
-          <div v-for="(item, index) in newCard.items" :key="index">
-            <label :for="'item-' + index">Item {{ index + 1 }}:</label>
-            <input type="text" :id="'item-' + index" v-model="newCard.items[index]" :required="itemRequired[index]">
-          </div>
           <button type="submit">Add Card</button>
         </form>
       </div>
 
       <div v-for="(column, colIndex) in columns" :key="colIndex" class="column">
-        <h2>{{ column.name }}</h2>
-        <div v-for="(card, cardIndex) in column.cards" :key="card.title + cardIndex" class="card">
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.description }}</p>
-          <p>Дэдлайн: {{ card.deadline }}</p>
-          <p>Создано: {{ card.createdAt }}</p>
-          <p v-if="card.lastEditedAt">Последнее редактирование: {{ card.lastEditedAt }}</p>
-          <form @submit.prevent="editCard(card, card.title, card.description, card.deadline)">
-            <input type="text" v-model="card.title">
-            <textarea v-model="card.description"></textarea>
-            <input type="date" v-model="card.deadline">
-            <button type="submit">Сохранить изменения</button>
-          </form>
-          <ul>
-            <li v-for="(item, itemIndex) in card.items" :key="itemIndex">
-              <input type="checkbox" 
-                     v-model="item.completed" 
-                     @change="checkCompletion(card)" 
-                     :disabled="colIndex === 0 && isLocked || colIndex === 2">
-              {{ item.text }}
-            </li>
-          </ul>
-          <p v-if="card.completedAt">Completed at: {{ card.completedAt }}</p>
-        </div>
+          <h2>{{ column.name }}</h2>
+          <div v-for="(card, cardIndex) in column.cards" :key="card.title + cardIndex" class="card">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+            <p>Дэдлайн: {{ card.deadline }}</p>
+            <p>Создано: {{ card.createdAt }}</p>
+            <p v-if="card.lastEditedAt">Последнее редактирование: {{ card.lastEditedAt }}</p>
+            
+            <!-- Кнопки для перемещения карточки -->
+            <button v-if="colIndex > 0" @click="moveCard(card, column, columns[colIndex - 1])">Вернуться</button>
+            <button v-if="colIndex < columns.length - 1" @click="moveCard(card, column, columns[colIndex + 1])">Переместить вперед</button>
+          </div>
       </div>
+
       <p v-if="isLocked">Первый столбец заблокирован. Завершите одну из карточек во втором столбце.</p>
     </div>
   `,
