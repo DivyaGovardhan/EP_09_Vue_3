@@ -92,3 +92,79 @@ input[type=checkbox]{
     transition: 0.2s;
     background-color: #0056b3;
 }
+
+.card {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+    background: white;
+}
+
+.card.overdue {
+    border-left: 4px solid #ff4444;
+}
+
+.card.completed {
+    border-left: 4px solid #00C851;
+}
+
+.status-badge {
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.card.overdue .status-badge {
+    color: #ff4444;
+}
+
+.card.completed .status-badge {
+    color: #00C851;
+}
+
+.card-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.card-actions button {
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    min-width: 300px;
+}
+
+.dialog textarea {
+    width: 100%;
+    min-height: 100px;
+    margin: 10px 0;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

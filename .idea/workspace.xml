@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0f5d624-1454-4097-af08-8b6392e40097" name="Changes" comment="additionalColumn">
+    <list default="true" id="a0f5d624-1454-4097-af08-8b6392e40097" name="Changes" comment="cardEditing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742920051639</updated>
-      <workItem from="1742920052875" duration="4429000" />
+      <workItem from="1742920052875" duration="5401000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -120,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742922505513</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="cardEditing">
+      <option name="closed" value="true" />
+      <created>1742924945073</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742924945073</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +141,7 @@
     <MESSAGE value="cardsMoving" />
     <MESSAGE value="components" />
     <MESSAGE value="additionalColumn" />
-    <option name="LAST_COMMIT_MESSAGE" value="additionalColumn" />
+    <MESSAGE value="cardEditing" />
+    <option name="LAST_COMMIT_MESSAGE" value="cardEditing" />
   </component>
 </project>
